@@ -7,11 +7,11 @@
 import Foundation
 
 struct NewReleasesResponse: Codable {
-    let albums: AlbumsResponse
+    var albums: AlbumsResponse
 }
 
 struct AlbumsResponse: Codable {
-    let items: [Album]
+    var items: [Album]
 }
 
 struct Album: Codable {

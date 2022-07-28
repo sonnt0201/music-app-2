@@ -9,14 +9,14 @@ import Foundation
 
 struct AudioTrack: Codable {
     var album: Album?
-    let artists: [Artist]
-    let available_markets: [String]
-    let disc_number: Int
-    let duration_ms: Int
-    let explicit: Bool
-    let external_urls: [String: String]
-    let id: String
-    let name: String
-    let popularity: Int?
-    let preview_url: String?
+    var artists: [Artist]
+    var available_markets: [String]
+    var disc_number: Int
+    var duration_ms: Int
+    var explicit: Bool
+    var external_urls: [String: String]
+    var id: String
+    var name: String
+    var popularity: Int?
+    var preview_url: String?
 }

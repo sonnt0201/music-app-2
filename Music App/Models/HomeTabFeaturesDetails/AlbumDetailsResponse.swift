@@ -19,6 +19,6 @@ struct AlbumDetailsResponse: Codable {
 }
 
 struct TracksResponse: Codable {
-    let items: [AudioTrack]
+    var items: [AudioTrack]
     
 }
