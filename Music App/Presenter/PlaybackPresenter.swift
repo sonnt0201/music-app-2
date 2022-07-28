@@ -85,21 +85,32 @@ final class PlaybackPresenter {
 }
 
 extension PlaybackPresenter: PlayerViewControllerDelegate {
+    // MARK: - NÚT DỪNG / PHÁT TIẾP
     func didTapPlayPause() {
+        
         if let player = player {
             if player.timeControlStatus == .playing {
-                player.pause()
+                DispatchQueue.main.async {
+                    player.pause()
+                }
             }
             else if player.timeControlStatus == .paused {
-                player.play()
+                DispatchQueue.main.async {
+                    player.play()
+                }
             }
         }
         else if let player = playerQueue {
             if player.timeControlStatus == .playing {
-                player.pause()
+                DispatchQueue.main.async {
+                    player.pause()
+                }
+                
             }
             else if player.timeControlStatus == .paused {
-                player.play()
+                DispatchQueue.main.async {
+                    player.play()
+                }
             }
         }
     }
@@ -118,18 +129,18 @@ extension PlaybackPresenter: PlayerViewControllerDelegate {
     }
 
     func didTapBackward() {
-        if tracks.isEmpty {
-            // Not playlist or album
-            player?.pause()
-            player?.play()
-        }
-        else if let firstItem = playerQueue?.items().first {
-            playerQueue?.pause()
-            playerQueue?.removeAllItems()
-            playerQueue = AVQueuePlayer(items: [firstItem])
-            playerQueue?.play()
-            playerQueue?.volume = 0.5
-        }
+//        if tracks.isEmpty {
+//            // Not playlist or album
+//            player?.pause()
+//            player?.play()
+//        }
+//        else if let firstItem = playerQueue?.items().first {
+//            playerQueue?.pause()
+//            playerQueue?.removeAllItems()
+//            playerQueue = AVQueuePlayer(items: [firstItem])
+//            playerQueue?.play()
+//            playerQueue?.volume = 0.5
+//        }
     }
 
     func didSlideSlider(_ value: Float) {

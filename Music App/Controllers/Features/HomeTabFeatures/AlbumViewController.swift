@@ -139,10 +139,11 @@ extension AlbumViewController: PlaylistHeaderCollectionViewDelegate {
     func playlistHeaderViewDidTapPlayAll(_ header: PlaylistHeaderCollectionView) {
         // TODO: - START PLAYLIST PLAYING IN QUEUE
         print("play all")
-        let tracksWithAlbum: [AudioTrack] = tracks.compactMap {
-            var track = $0
-            track.album? = self.album
-            return track
+        var tracksWithAlbum = tracks
+        for index in 0 ... tracks.count - 1 {
+            tracksWithAlbum[index] = tracks[index]
+            tracksWithAlbum[index].album = self.album
+            
         }
         PlaybackPresenter.shared.startPlayback(from: self, tracks: tracksWithAlbum)
     }
