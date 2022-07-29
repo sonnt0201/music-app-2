@@ -21,23 +21,22 @@ final class PlaybackPresenter {
     private var tracks = [AudioTrack]()
 
     var index = 0
-
+    // MARK: - currentTrack DÙNG ĐỂ TRUYỀN DỮ LIỆU ( TÊN BÀI HÁT,ẢNH, V..V.. ) CHO MÀN HÌNH PHÁT (QUA DATA SOURCE)
     var currentTrack: AudioTrack? {
         if let track = track, tracks.isEmpty {
             return track
-        }
-        else if let player = self.playerQueue, !tracks.isEmpty {
+        } else if track == nil, !tracks.isEmpty{
             return tracks[index]
         }
-
         return nil
     }
 
     var playerVC: PlayerViewController?
 
     var player: AVPlayer?
-    var playerQueue: AVQueuePlayer?
-
+    var playerQueue: [AVPlayer?] = []
+    var isPlaying = false
+// MARK: - PHÁT 1 BÀI NHẠC
     func startPlayback(
         from viewController: UIViewController,
         track: AudioTrack
@@ -56,10 +55,12 @@ final class PlaybackPresenter {
         vc.delegate = self
         viewController.present(UINavigationController(rootViewController: vc), animated: true) { [weak self] in
             self?.player?.play()
+            self?.isPlaying = true
+
         }
         self.playerVC = vc
     }
-
+// MARK: -  PHÁT 1 DANH SÁCH
     func startPlayback(
         from viewController: UIViewController,
         tracks: [AudioTrack]
@@ -67,19 +68,19 @@ final class PlaybackPresenter {
         self.tracks = tracks
         self.track = nil
 
-        self.playerQueue = AVQueuePlayer(items: tracks.compactMap({
-            guard let url = URL(string: $0.preview_url ?? "") else {
-                return nil
-            }
-            return AVPlayerItem(url: url)
-        }))
-        self.playerQueue?.volume = 0.5
-        self.playerQueue?.play()
-
+        for index in 0...tracks.count-1 {
+            playerQueue.append(AVPlayer(url: URL (string: tracks[index].preview_url ?? "")!))
+        }
+        
         let vc = PlayerViewController()
         vc.dataSource = self
         vc.delegate = self
-        viewController.present(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+        viewController.present(UINavigationController(rootViewController: vc), animated: true){
+            self.index = 0;
+            self.player = self.playerQueue[self.index]
+            self.player?.play()
+            self.isPlaying = true
+        }
         self.playerVC = vc
     }
 }
@@ -92,55 +93,38 @@ extension PlaybackPresenter: PlayerViewControllerDelegate {
             if player.timeControlStatus == .playing {
                 DispatchQueue.main.async {
                     player.pause()
+                    self.isPlaying = false
                 }
             }
             else if player.timeControlStatus == .paused {
                 DispatchQueue.main.async {
                     player.play()
+                    self.isPlaying = true
                 }
             }
         }
-        else if let player = playerQueue {
-            if player.timeControlStatus == .playing {
-                DispatchQueue.main.async {
-                    player.pause()
-                }
-                
-            }
-            else if player.timeControlStatus == .paused {
-                DispatchQueue.main.async {
-                    player.play()
-                }
-            }
-        }
+        
     }
 
     func didTapForward() {
-        if tracks.isEmpty {
-            // Not playlist or album
-            player?.pause()
-        }
-        else if let player = playerQueue {
-            player.advanceToNextItem()
-            index += 1
-            print(index)
-            playerVC?.refreshUI()
-        }
+        guard self.index < tracks.count - 1, !tracks.isEmpty else { return }
+        player?.pause()
+        index += 1
+        player = playerQueue[index]
+        print(index)
+        //currentTrack = tracks[index]
+        playerVC?.refreshUI()
+        if isPlaying { player?.play() }
     }
 
     func didTapBackward() {
-//        if tracks.isEmpty {
-//            // Not playlist or album
-//            player?.pause()
-//            player?.play()
-//        }
-//        else if let firstItem = playerQueue?.items().first {
-//            playerQueue?.pause()
-//            playerQueue?.removeAllItems()
-//            playerQueue = AVQueuePlayer(items: [firstItem])
-//            playerQueue?.play()
-//            playerQueue?.volume = 0.5
-//        }
+        guard index > 0, !tracks.isEmpty else { return }
+        player?.pause()
+        index -= 1
+        player = playerQueue[index]
+        print(index)
+        playerVC?.refreshUI()
+        if isPlaying { player?.play() }
     }
 
     func didSlideSlider(_ value: Float) {
