@@ -25,12 +25,7 @@ enum HomeSectionType {
 
 class HomeViewController: UIViewController {
 
-    private let spinner : UIActivityIndicatorView = {
-        let spinner = UIActivityIndicatorView()
-        spinner.tintColor = .systemGreen
-        spinner.hidesWhenStopped = true
-        return spinner
-    }()
+    
     private var collectionView : UICollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
@@ -52,7 +47,6 @@ class HomeViewController: UIViewController {
                                                             target: self,
                                                             action: #selector(didTapSetting)
         )
-        view.addSubview(spinner)
         configCollectionView()
         fetchData()
         
