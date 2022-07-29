@@ -47,8 +47,6 @@ class SettingViewController: UIViewController {
             }
             
         })]))
-        
-        
     }
     
 }
@@ -92,5 +90,12 @@ extension SettingViewController {
     }
     private func signOut(){
         // TODO: - signout
+        AuthManager.shared.signOut { [weak self] _ in
+            DispatchQueue.main.async {
+                let signInVC = UINavigationController(rootViewController: WelcomeViewController())
+                signInVC.modalPresentationStyle = .fullScreen
+                self?.present(signInVC, animated: true)
+            }
+        }
     }
 }

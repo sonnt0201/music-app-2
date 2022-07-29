@@ -120,6 +120,14 @@ final class AuthManager {
                                   forKey: "expirationDate")
 
     }
+    
+    // MARK: - Sign out
+    public func signOut(completion: (Bool) -> Void) {
+        UserDefaults.standard.setValue(nil, forKey: "access_token")
+        UserDefaults.standard.setValue(nil, forKey: "refresh_token")
+        UserDefaults.standard.setValue(nil, forKey: "expirationDate")
+        completion(true)
+    }
 }
 
 // MARK: - supplies valid token to be used with apicall
@@ -202,4 +210,5 @@ extension AuthManager {
         }
         task.resume()
     }
+    
 }

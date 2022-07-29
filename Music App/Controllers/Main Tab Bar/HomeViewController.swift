@@ -25,12 +25,7 @@ enum HomeSectionType {
 
 class HomeViewController: UIViewController {
 
-    private let spinner : UIActivityIndicatorView = {
-        let spinner = UIActivityIndicatorView()
-        spinner.tintColor = .systemGreen
-        spinner.hidesWhenStopped = true
-        return spinner
-    }()
+    
     private var collectionView : UICollectionView = UICollectionView(
         frame: .zero,
         collectionViewLayout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
@@ -52,7 +47,6 @@ class HomeViewController: UIViewController {
                                                             target: self,
                                                             action: #selector(didTapSetting)
         )
-        view.addSubview(spinner)
         configCollectionView()
         fetchData()
         
@@ -400,7 +394,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             self.navigationController?.setToolbarHidden(false, animated: true)
         case.recommendedTracks:
             let track = tracks[indexPath.row]
-            PlaybackPresenter.shared.startPlayback(from: self, track: track )
+            PlaybackPresenter.shared.startPlayback(from: self, tracks: [track] )
         }
         
     }

@@ -113,7 +113,7 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
         // TODO: - PLAY SONG
         var track = tracks[indexPath.row]
         track.album = self.album
-        PlaybackPresenter.shared.startPlayback(from: self, track: track)
+        PlaybackPresenter.shared.startPlayback(from: self, tracks: [track])
         
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
