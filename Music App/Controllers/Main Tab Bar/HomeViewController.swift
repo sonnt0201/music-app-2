@@ -37,8 +37,11 @@ class HomeViewController: UIViewController {
     private var newAlbums : [Album] = []
     private var playlists : [Playlist] = []
     private var tracks : [AudioTrack] = []
+    
     // MARK: - VIEW DID LOAD
     override func viewDidLoad() {
+        configCollectionView()
+        fetchData()
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         // MARK: - add profile button to navigation right bar item
@@ -47,9 +50,6 @@ class HomeViewController: UIViewController {
                                                             target: self,
                                                             action: #selector(didTapSetting)
         )
-        configCollectionView()
-        fetchData()
-        
     }
     
     override func viewDidLayoutSubviews() {
