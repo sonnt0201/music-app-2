@@ -18,17 +18,13 @@ final class PlaybackPresenter {
     static let shared = PlaybackPresenter()
 
     private var track: AudioTrack?
-    private var tracks = [AudioTrack]()
-
+    private var tracks = [AudioTrack?]()
     var index = 0
     // MARK: - currentTrack DÙNG ĐỂ TRUYỀN DỮ LIỆU ( TÊN BÀI HÁT,ẢNH, V..V.. ) CHO MÀN HÌNH PHÁT (QUA DATA SOURCE)
     var currentTrack: AudioTrack? {
-        if let track = track, tracks.isEmpty {
-            return track
-        } else if track == nil, !tracks.isEmpty{
-            return tracks[index]
-        }
-        return nil
+        print(index)
+        if index > tracks.count - 1 { index = 0}
+        return tracks[index]
     }
 
     var playerVC: PlayerViewController?
@@ -36,47 +32,29 @@ final class PlaybackPresenter {
     var player: AVPlayer?
     var playerQueue: [AVPlayer?] = []
     var isPlaying = false
-// MARK: - PHÁT 1 BÀI NHẠC
-    func startPlayback(
-        from viewController: UIViewController,
-        track: AudioTrack
-    ) {
-        guard let url = URL(string: track.preview_url ?? "") else {
-            return
-        }
-        player = AVPlayer(url: url)
-        player?.volume = 0.5
 
-        self.track = track
-        self.tracks = []
-        let vc = PlayerViewController()
-        vc.title = track.name
-        vc.dataSource = self
-        vc.delegate = self
-        viewController.present(UINavigationController(rootViewController: vc), animated: true) { [weak self] in
-            self?.player?.play()
-            self?.isPlaying = true
-
-        }
-        self.playerVC = vc
-    }
 // MARK: -  PHÁT 1 DANH SÁCH
     func startPlayback(
         from viewController: UIViewController,
         tracks: [AudioTrack]
     ) {
+        playerQueue.removeAll()
         self.tracks = tracks
-        self.track = nil
-
+        
         for index in 0...tracks.count-1 {
-            playerQueue.append(AVPlayer(url: URL (string: tracks[index].preview_url ?? "")!))
+            if let url = URL (string: tracks[index].preview_url ?? "" ){
+                playerQueue.append( AVPlayer(url: url))
+            }
+            else {
+                playerQueue.append(nil)
+            }
         }
         
         let vc = PlayerViewController()
         vc.dataSource = self
         vc.delegate = self
         viewController.present(UINavigationController(rootViewController: vc), animated: true){
-            self.index = 0;
+            self.index = 0
             self.player = self.playerQueue[self.index]
             self.player?.play()
             self.isPlaying = true

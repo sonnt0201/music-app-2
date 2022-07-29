@@ -394,7 +394,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             self.navigationController?.setToolbarHidden(false, animated: true)
         case.recommendedTracks:
             let track = tracks[indexPath.row]
-            PlaybackPresenter.shared.startPlayback(from: self, track: track )
+            PlaybackPresenter.shared.startPlayback(from: self, tracks: [track] )
         }
         
     }

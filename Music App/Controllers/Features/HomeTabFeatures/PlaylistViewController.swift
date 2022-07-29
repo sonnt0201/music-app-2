@@ -133,7 +133,7 @@ extension PlaylistViewController : UICollectionViewDataSource, UICollectionViewD
         // TODO: - PLAY SONG
         let index = indexPath.row
         let track = tracks[index]
-        PlaybackPresenter.shared.startPlayback(from: self, track: track)
+        PlaybackPresenter.shared.startPlayback(from: self, tracks: [track])
     }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let header = collectionView.dequeueReusableSupplementaryView(
