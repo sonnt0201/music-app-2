@@ -12,24 +12,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        
-        if AuthManager.shared.isSignIn {
-            AuthManager.shared.refreshAccessToken(completion: nil)
-            window.rootViewController = TabBarViewController()
-        } else {
-            let navi = UINavigationController(rootViewController: WelcomeViewController())
-            navi.navigationBar.prefersLargeTitles = true
-            navi.viewControllers.first?.navigationItem.largeTitleDisplayMode = .always
-            window.rootViewController = navi
-        }
-        
-        window.makeKeyAndVisible()
-        self.window = window
-        AuthManager.shared.refreshAccessToken { success in
-            print(success)
-        }
         return true
     }
 
