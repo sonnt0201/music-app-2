@@ -134,6 +134,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0218B84C2894E8E3002857F8 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				02AF083A288561490047B271 /* NewRealeaseCell.swift */,
+				02AF083C2885616A0047B271 /* FeaturedPlaylistCell.swift */,
+				02AF083E288561A50047B271 /* RecommendedTrackCell.swift */,
+				02AF084A2887A3660047B271 /* HomeTabFeatures */,
+				028BE26A2879215700306E87 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		028BE25A2879215700306E87 = {
 			isa = PBXGroup;
 			children = (
@@ -215,9 +227,6 @@
 		02AF0831288558970047B271 /* CustomHomeCells */ = {
 			isa = PBXGroup;
 			children = (
-				02AF083A288561490047B271 /* NewRealeaseCell.swift */,
-				02AF083C2885616A0047B271 /* FeaturedPlaylistCell.swift */,
-				02AF083E288561A50047B271 /* RecommendedTrackCell.swift */,
 				02A8FBD82889A49200E79869 /* AlbumTrackCell.swift */,
 				02A8FBD22888F62C00E79869 /* PlaylistHeaderCollectionView.swift */,
 				02A8FBD6288957D000E79869 /* TitleHeaderCollectionView.swift */,
@@ -327,7 +336,7 @@
 		02B553B22879425E00BB0120 /* Main Tab Bar */ = {
 			isa = PBXGroup;
 			children = (
-				028BE26A2879215700306E87 /* HomeViewController.swift */,
+				0218B84C2894E8E3002857F8 /* Home */,
 				02B553AC28793F9F00BB0120 /* TabBarViewController.swift */,
 				02B553AE28793FEE00BB0120 /* SearchViewController.swift */,
 				02B553B02879423600BB0120 /* LibraryViewController.swift */,
@@ -343,7 +352,6 @@
 				02B553B8287942F800BB0120 /* SettingViewController.swift */,
 				02B553BA2879432500BB0120 /* ProfileViewController.swift */,
 				02A8FBDC2889B56700E79869 /* SearchTabBarFeatures */,
-				02AF084A2887A3660047B271 /* HomeTabFeatures */,
 			);
 			path = Features;
 			sourceTree = "<group>";
