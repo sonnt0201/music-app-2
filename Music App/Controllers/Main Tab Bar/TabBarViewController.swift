@@ -17,31 +17,31 @@ class TabBarViewController: UITabBarController {
         // MARK: - create tabbar vc
         let vc1 = HomeViewController()
         let vc2 = SearchViewController()
-        let vc3 = LibraryViewController()
+//        let vc3 = LibraryViewController()
         
         // MARK: - set titles
         vc1.title = "ÂM NHẠC"
         vc2.title = "TÌM KIẾM"
-        vc3.title = "THƯ VIỆN"
+//        vc3.title = "THƯ VIỆN"
         
         
        // MARK: - set large title
         vc1.navigationItem.largeTitleDisplayMode = .automatic
         vc2.navigationItem.largeTitleDisplayMode = .automatic
-        vc3.navigationItem.largeTitleDisplayMode = .automatic
+//        vc3.navigationItem.largeTitleDisplayMode = .automatic
         
         // MARK: - set root vc
         let nv1 = UINavigationController(rootViewController: vc1)
         let nv2 = UINavigationController(rootViewController: vc2)
-        let nv3 = UINavigationController(rootViewController: vc3)
+//        let nv3 = UINavigationController(rootViewController: vc3)
         
         nv1.navigationBar.prefersLargeTitles = true
         nv2.navigationBar.prefersLargeTitles = true
-        nv3.navigationBar.prefersLargeTitles = true
+//        nv3.navigationBar.prefersLargeTitles = true
         // MARK: - set image for tabbar
         nv1.tabBarItem = UITabBarItem(title: "TRANG CHỦ", image: UIImage(systemName: "house") , tag: 1)
         nv2.tabBarItem = UITabBarItem(title: "TÌM KIẾM", image: UIImage(systemName: "magnifyingglass") , tag: 2)
-        nv3.tabBarItem = UITabBarItem(title: "THƯ VIỆN", image: UIImage(systemName: "book") , tag: 3)
+//        nv3.tabBarItem = UITabBarItem(title: "THƯ VIỆN", image: UIImage(systemName: "book") , tag: 3)
        
         // MARK: - add nv to tab bar
         nv1.navigationBar.tintColor = .systemOrange
